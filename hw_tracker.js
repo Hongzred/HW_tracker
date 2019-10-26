@@ -1,42 +1,42 @@
 function main () {
     const submit_button = document.getElementById('submit-button');
-    submit_button.addEventListener('click',submit);
+    submit_button.addEventListener('click', submit);
 }
 
 function getFormInfo () {
     const courseName = document.getElementById('course-name');
     const description = document.getElementById('assignment-description');
-    const status = document.getElementById('assignment-type');
+    const status = document.querySelector('input[name="assignment-type"]:checked').value;;
 
     document.getElementById('course-name').value = '';
     document.getElementById('assignment-description').value = '';
-    document.getElementById('assignment-type').value = 'Done';
+    // document.getElementsByName('assignment-type').value = 'Done';
 
     return [courseName, description, status];
 }
 
 function submit (event) {
     event.preventDefault();
-    [couseName, description, status] = getFormInfo();
+    [courseName, description, status] = getFormInfo();
 
     const hwList = document.getElementById('hw-list');
     const hw = document.createElement('li');
     const card = document.createElement('div');
-    const courseName = document.createElement('label');
-    const assignmentDescription = document.createElement('label');
-    const status = document.createElement('label');
+    const courseNameHolder = document.createElement('label');
+    const assignmentDescriptionHolder = document.createElement('label');
+    const statusHolder = document.createElement('label');
     const closeButton = document.createElement('button');
 
-    couseName.append(document.createTextNode(courseName));
-    assignmentDescription.append(document.createTextNode(description));
-    status.append(document.createTextNode(status));
+    courseNameHolder.append(document.createTextNode(courseName));
+    assignmentDescriptionHolder.append(document.createTextNode(description));
+    statusHolder.append(document.createTextNode(status));
 
     closeButton.appendChild(document.createTextNode('\u274e'));
 
     card.appendChild(closeButton);
-    card.appendChild(courseName);
-    card.appendChild(assignmentDescription);
-    card.appendChild(status);
+    card.appendChild(courseNameHolder);
+    card.appendChild(assignmentDescriptionHolder);
+    card.appendChild(statusHolder);
     hw.appendChild(card);
     hwList.appendChild(hw);
 
@@ -58,3 +58,5 @@ function submit (event) {
     })
 
 }
+
+window.onload = main;
