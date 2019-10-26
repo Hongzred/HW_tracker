@@ -4,8 +4,8 @@ function main () {
 }
 
 function getFormInfo () {
-    const courseName = document.getElementById('course-name');
-    const description = document.getElementById('assignment-description');
+    const courseName = document.getElementById('course-name').value;
+    const description = document.getElementById('assignment-description').value;
     const status = document.querySelector('input[name="assignment-type"]:checked').value;;
 
     document.getElementById('course-name').value = '';
@@ -18,20 +18,24 @@ function getFormInfo () {
 function submit (event) {
     event.preventDefault();
     [courseName, description, status] = getFormInfo();
-
+    if (courseName === '' || description === '') {
+        alert('Please enter valid input');
+    }
     const hwList = document.getElementById('hw-list');
     const hw = document.createElement('li');
     const card = document.createElement('div');
-    const courseNameHolder = document.createElement('label');
-    const assignmentDescriptionHolder = document.createElement('label');
-    const statusHolder = document.createElement('label');
-    const closeButton = document.createElement('button');
+    const courseNameHolder = document.createElement('h5');
+    const assignmentDescriptionHolder = document.createElement('p');
+    const statusHolder = document.createElement('p');
+    const closeButton = document.createElement('div');
 
-    courseNameHolder.append(document.createTextNode(courseName));
-    assignmentDescriptionHolder.append(document.createTextNode(description));
-    statusHolder.append(document.createTextNode(status));
+    courseNameHolder.append(document.createTextNode('Course: ' + courseName));
+    assignmentDescriptionHolder.append(document.createTextNode('Description: ' + description));
+    statusHolder.append(document.createTextNode('Type: ' + status));
 
-    closeButton.appendChild(document.createTextNode('\u274e'));
+    const closeButtonParent = document.createElement('span');
+    closeButtonParent.append(document.createTextNode('\u274e'));
+    closeButton.append(closeButtonParent);
 
     card.appendChild(closeButton);
     card.appendChild(courseNameHolder);
